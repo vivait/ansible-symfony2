@@ -19,11 +19,14 @@
 - name: Clear Doctrine metadata cache
   shell: cd {{ symfony2_release_destination }} && if grep -q doctrine/doctrine-bundle composer.lock; then {{symfony2_php_path}} {{symfony2_console_path}} doctrine:cache:clear-metadata -e {{symfony2_project_env}} {{symfony2_console_opts}}; fi
   tags: ['app_cache']
+  when: 'symfony2_doctrine_enabled|bool'
 
 - name: Clear Doctrine result cache
   shell: cd {{ symfony2_release_destination }} && if grep -q doctrine/doctrine-bundle composer.lock; then {{symfony2_php_path}} {{symfony2_console_path}} doctrine:cache:clear-result -e {{symfony2_project_env}} {{symfony2_console_opts}}; fi
   tags: ['app_cache']
+  when: 'symfony2_doctrine_enabled|bool'
 
 - name: Clear Doctrine query cache
   shell: cd {{ symfony2_release_destination }} && if grep -q doctrine/doctrine-bundle composer.lock; then {{symfony2_php_path}} {{symfony2_console_path}} doctrine:cache:clear-query -e {{symfony2_project_env}} {{symfony2_console_opts}}; fi
   tags: ['app_cache']
+  when: 'symfony2_doctrine_enabled|bool'

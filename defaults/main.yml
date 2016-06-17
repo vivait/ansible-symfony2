@@ -5,6 +5,8 @@ symfony2_console_opts: ~
 
 symfony2_project_env: prod
 
+symfony2_doctrine_enabled: true
+
 override_parameters: {}
 
 symfony2_composer_opts: '{{ "--no-dev" if symfony2_project_env == "prod" else "" }} --prefer-dist --optimize-autoloader -n'
