@@ -6,7 +6,7 @@
   lineinfile: dest=~/.bashrc line='export SYMFONY_ENV={{symfony2_project_env}}' insertafter='EOF' state=present
 
 - name: Source the bashrc file
-  shell: source ~/.bashrc
+  shell: . ~/.bashrc
    
 - name: Run composer install
   shell: cd {{ symfony2_release_destination }} && composer install {{symfony2_composer_opts}}
