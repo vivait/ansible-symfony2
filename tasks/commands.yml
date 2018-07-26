@@ -1,12 +1,15 @@
 ---
+- name: Set DEPLOY_ENV
+  lineinfile: dest=~/.bashrc line='export DEPLOY_ENV={{deploy_env|default(symfony2_project_env)}}' insertafter='EOF' state=present
+
+- name: Set SYMFONY_ENV
+  lineinfile: dest=~/.bashrc line='export SYMFONY_ENV={{symfony2_project_env}}' insertafter='EOF' state=present
+
 - name: Run composer install
   shell: composer install {{symfony2_composer_opts}}
-    args:
+  args:
       chdir: {{ symfony2_release_destination }}
-    environment:
-        DEPLOY_ENV: {{deploy_env|default(symfony2_project_env)}}
-        SYMFONY_ENV: {{symfony2_project_env}}
-        
+  
 - name: Update the assets version
   shell: cd {{ symfony2_release_destination }} && if grep -q 'kachkaev/assets-version-bundle' composer.lock; then {{symfony2_php_path}} {{symfony2_console_path}} assets_version:set {{ ansible_date_time.epoch }} --env={{symfony2_project_env}} {{symfony2_console_opts}}; fi
 
